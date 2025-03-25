@@ -1,0 +1,21 @@
+{
+  "name": "fintrack-node-backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx watch ./src/server.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "fastify": "^5.2.1"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.3",
+    "@types/node": "^22.13.13",
+    "tsup": "^8.4.0",
+    "typescript": "^5.8.2"
+  }
+}
