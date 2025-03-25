@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "tsx watch ./src/server.ts"
+    "dev": "tsx watch ./src/server.ts",
+    "lint": "eslint ./src --fix"
   },
   "keywords": [],
   "author": "",
@@ -13,9 +14,15 @@
     "fastify": "^5.2.1"
   },
   "devDependencies": {
-    "tsx": "^4.19.3",
+    "@eslint/js": "^9.23.0",
     "@types/node": "^22.13.13",
+    "eslint": "^9.23.0",
+    "eslint-config-prettier": "^10.1.1",
+    "globals": "^16.0.0",
+    "prettier": "^3.5.3",
     "tsup": "^8.4.0",
-    "typescript": "^5.8.2"
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2",
+    "typescript-eslint": "^8.28.0"
   }
 }
