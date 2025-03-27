@@ -28,4 +28,14 @@ export class InMemoryUserRepository implements UserRepositoryInterface {
 
     return user;
   }
+
+  findById(id: string): User | null {
+    const user = this.user.find((user) => user.id === id);
+
+    if (!user) {
+      return null;
+    }
+
+    return user;
+  }
 }
