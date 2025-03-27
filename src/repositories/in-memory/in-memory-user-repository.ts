@@ -18,4 +18,14 @@ export class InMemoryUserRepository implements UserRepositoryInterface {
 
     return newUser;
   }
+
+  findByEmail(email: string): User | null {
+    const user = this.user.find((user) => user.email === email);
+
+    if (!user) {
+      return null;
+    }
+
+    return user;
+  }
 }
