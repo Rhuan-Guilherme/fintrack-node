@@ -8,13 +8,13 @@ interface DeleteUserRequest {
 export class DeleteUserUseCase {
   constructor(private userRepository: UserRepositoryInterface) {}
 
-  execute({ id }: DeleteUserRequest): void {
+  async execute({ id }: DeleteUserRequest): Promise<void> {
     const user = this.userRepository.findById(id);
 
     if (!user) {
       throw new ResourceNotFoundError();
     }
 
-    this.userRepository.delete(id);
+    await this.userRepository.delete(id);
   }
 }

@@ -6,13 +6,13 @@ import { beforeEach, describe, expect, test } from "vitest";
 let userRepository: UserRepositoryInterface;
 let useCase: ListAllUsersUseCase;
 
-describe("Teste para obter um usuário pelo ID.", () => {
+describe("Teste para listagem de usuários.", () => {
   beforeEach(() => {
     userRepository = new InMemoryUserRepository();
     useCase = new ListAllUsersUseCase(userRepository);
   });
 
-  test("Deve ser obter dados de um usuário pelo ID.", async () => {
+  test("Deve ser obter a listagem de usuários cadastrados.", async () => {
     userRepository.create({
       name: "Teste",
       email: "teste@teste.com",
