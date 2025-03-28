@@ -38,4 +38,8 @@ export class InMemoryUserRepository implements UserRepositoryInterface {
 
     return user;
   }
+
+  findAll(): User[] {
+    return this.user;
+  }
 }
