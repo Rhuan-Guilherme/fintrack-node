@@ -5,4 +5,5 @@ export interface UserRepositoryInterface {
   findByEmail(email: string): User | null;
   findById(id: string): User | null;
   findAll(): User[];
+  delete(id: string): void;
 }

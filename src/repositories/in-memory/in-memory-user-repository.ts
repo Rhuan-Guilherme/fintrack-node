@@ -42,4 +42,12 @@ export class InMemoryUserRepository implements UserRepositoryInterface {
   findAll(): User[] {
     return this.user;
   }
+
+  delete(id: string): void {
+    const indexUser = this.user.findIndex((user) => user.id !== id);
+
+    if (indexUser !== -1) {
+      this.user.splice(indexUser, 1);
+    }
+  }
 }
