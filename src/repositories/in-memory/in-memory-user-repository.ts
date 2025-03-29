@@ -5,7 +5,7 @@ import { randomUUID } from "crypto";
 export class InMemoryUserRepository implements UserRepositoryInterface {
   public user: User[] = [];
 
-  create(user: Prisma.UserCreateInput): User {
+  async create(user: Prisma.UserCreateInput): Promise<User> {
     const newUser = {
       id: randomUUID(),
       name: user.name,
@@ -19,7 +19,7 @@ export class InMemoryUserRepository implements UserRepositoryInterface {
     return newUser;
   }
 
-  findByEmail(email: string): User | null {
+  async findByEmail(email: string): Promise<User | null> {
     const user = this.user.find((user) => user.email === email);
 
     if (!user) {
@@ -29,7 +29,7 @@ export class InMemoryUserRepository implements UserRepositoryInterface {
     return user;
   }
 
-  findById(id: string): User | null {
+  async findById(id: string): Promise<User | null> {
     const user = this.user.find((user) => user.id === id);
 
     if (!user) {
@@ -39,11 +39,11 @@ export class InMemoryUserRepository implements UserRepositoryInterface {
     return user;
   }
 
-  findAll(): User[] {
+  async findAll(): Promise<User[]> {
     return this.user;
   }
 
-  delete(id: string): void {
+  async delete(id: string): Promise<void> {
     const indexUser = this.user.findIndex((user) => user.id !== id);
 
     if (indexUser !== -1) {
@@ -51,7 +51,7 @@ export class InMemoryUserRepository implements UserRepositoryInterface {
     }
   }
 
-  update(id: string, user: Prisma.UserUpdateInput): User | null {
+  async update(id: string, user: Prisma.UserUpdateInput): Promise<User | null> {
     const indexUser = this.user.findIndex((user) => user.id === id);
 
     if (indexUser !== -1) {
