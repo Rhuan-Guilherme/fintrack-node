@@ -50,4 +50,16 @@ export class InMemoryUserRepository implements UserRepositoryInterface {
       this.user.splice(indexUser, 1);
     }
   }
+
+  update(id: string, user: Prisma.UserUpdateInput): User | null {
+    const indexUser = this.user.findIndex((user) => user.id === id);
+
+    if (indexUser !== -1) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      this.user[indexUser] = { ...this.user[indexUser], ...user } as any;
+      return this.user[indexUser];
+    }
+
+    return null;
+  }
 }
