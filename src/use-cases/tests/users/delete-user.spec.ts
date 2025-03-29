@@ -1,7 +1,7 @@
 import { InMemoryUserRepository } from "@/repositories/in-memory/in-memory-user-repository";
 import { UserRepositoryInterface } from "@/repositories/user-repository-interface";
 import { ResourceNotFoundError } from "@/use-cases/exceptions/resource-not-found-error";
-import { DeleteUserUseCase } from "@/use-cases/users/delete-user";
+import { DeleteUserUseCase } from "@/use-cases/_users/delete-user";
 import { beforeEach, describe, expect, test } from "vitest";
 
 let userRepository: UserRepositoryInterface;

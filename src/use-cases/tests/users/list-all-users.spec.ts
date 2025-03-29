@@ -1,6 +1,6 @@
 import { InMemoryUserRepository } from "@/repositories/in-memory/in-memory-user-repository";
 import { UserRepositoryInterface } from "@/repositories/user-repository-interface";
-import { ListAllUsersUseCase } from "@/use-cases/users/list-all-users";
+import { ListAllUsersUseCase } from "@/use-cases/_users/list-all-users";
 import { beforeEach, describe, expect, test } from "vitest";
 
 let userRepository: UserRepositoryInterface;

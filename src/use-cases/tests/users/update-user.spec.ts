@@ -1,7 +1,7 @@
 import { InMemoryUserRepository } from "@/repositories/in-memory/in-memory-user-repository";
 import { UserRepositoryInterface } from "@/repositories/user-repository-interface";
 import { ResourceNotFoundError } from "@/use-cases/exceptions/resource-not-found-error";
-import { UpdateUserUseCase } from "@/use-cases/users/update-user";
+import { UpdateUserUseCase } from "@/use-cases/_users/update-user";
 import { beforeEach, describe, expect, test } from "vitest";
 
 let userRepository: UserRepositoryInterface;
