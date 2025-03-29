@@ -9,7 +9,7 @@ export class DeleteUserUseCase {
   constructor(private userRepository: UserRepositoryInterface) {}
 
   async execute({ id }: DeleteUserRequest): Promise<void> {
-    const user = this.userRepository.findById(id);
+    const user = await this.userRepository.findById(id);
 
     if (!user) {
       throw new ResourceNotFoundError();

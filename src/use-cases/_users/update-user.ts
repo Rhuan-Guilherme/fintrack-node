@@ -28,7 +28,7 @@ export class UpdateUserUseCase {
       throw new ResourceNotFoundError();
     }
 
-    const userUpdated = this.userRepository.update(id, {
+    const userUpdated = await this.userRepository.update(id, {
       email,
       name,
       password_hash: password,

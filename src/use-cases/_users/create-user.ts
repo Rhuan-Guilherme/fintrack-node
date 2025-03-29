@@ -21,7 +21,7 @@ export class CreateUserUseCase {
     name,
     password,
   }: CreateUserRequest): Promise<CreateUserReponse> {
-    const findUser = this.userRepository.findByEmail(email);
+    const findUser = await this.userRepository.findByEmail(email);
 
     if (findUser) {
       throw new UserAlreadyExists();
@@ -29,7 +29,7 @@ export class CreateUserUseCase {
 
     const password_hash = await hash(password, 6);
 
-    const newUser = this.userRepository.create({
+    const newUser = await this.userRepository.create({
       name,
       email,
       password_hash,

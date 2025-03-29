@@ -8,7 +8,7 @@ import { beforeEach, describe, expect, test } from "vitest";
 let userRepository: UserRepositoryInterface;
 let useCase: CreateUserUseCase;
 
-describe("Teste para a criação de un novo usuário.", () => {
+describe("Teste para a criação de um novo usuário.", () => {
   beforeEach(() => {
     userRepository = new InMemoryUserRepository();
     useCase = new CreateUserUseCase(userRepository);

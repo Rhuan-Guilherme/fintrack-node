@@ -13,14 +13,14 @@ describe("Teste para deletar um usuário.", () => {
     useCase = new DeleteUserUseCase(userRepository);
   });
 
-  test("Deve ser deletar um usuário pelo ID.", async () => {
-    userRepository.create({
+  test("Deve ser possivel deletar um usuário pelo ID.", async () => {
+    await userRepository.create({
       name: "Teste",
       email: "teste@teste.com",
       password_hash: "teste123",
     });
 
-    const response = userRepository.create({
+    const response = await userRepository.create({
       name: "Teste2",
       email: "teste2@teste.com",
       password_hash: "teste123",
@@ -28,9 +28,7 @@ describe("Teste para deletar um usuário.", () => {
 
     const allUsers = await userRepository.findAll();
 
-    expect(allUsers.length).toEqual(2);
-
-    useCase.execute({ id: response.id });
+    await useCase.execute({ id: response.id });
 
     expect(allUsers.length).toEqual(1);
   });

@@ -14,7 +14,7 @@ export class GetUserUseCase {
   constructor(private userRepository: UserRepositoryInterface) {}
 
   async execute({ id }: GetUserRequest): Promise<GetUserReponse> {
-    const user = this.userRepository.findById(id);
+    const user = await this.userRepository.findById(id);
 
     if (!user) {
       throw new ResourceNotFoundError();

@@ -14,7 +14,7 @@ describe("Teste para atualizar dado de um usuário.", () => {
   });
 
   test("Deve ser deletar um usuário pelo ID.", async () => {
-    const response = userRepository.create({
+    const response = await userRepository.create({
       name: "Teste2",
       email: "teste2@teste.com",
       password_hash: "teste123",

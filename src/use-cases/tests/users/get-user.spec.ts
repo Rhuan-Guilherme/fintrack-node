@@ -14,7 +14,7 @@ describe("Teste para obter um usuário pelo ID.", () => {
   });
 
   test("Deve ser obter dados de um usuário pelo ID.", async () => {
-    const response = userRepository.create({
+    const response = await userRepository.create({
       name: "Teste",
       email: "teste@teste.com",
       password_hash: "teste123",

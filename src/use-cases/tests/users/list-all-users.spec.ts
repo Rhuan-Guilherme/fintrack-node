@@ -13,13 +13,13 @@ describe("Teste para listagem de usuários.", () => {
   });
 
   test("Deve ser obter a listagem de usuários cadastrados.", async () => {
-    userRepository.create({
+    await userRepository.create({
       name: "Teste",
       email: "teste@teste.com",
       password_hash: "teste123",
     });
 
-    userRepository.create({
+    await userRepository.create({
       name: "Teste2",
       email: "teste2@teste.com",
       password_hash: "teste123",
