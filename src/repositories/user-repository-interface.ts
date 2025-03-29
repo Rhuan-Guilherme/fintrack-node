@@ -6,4 +6,5 @@ export interface UserRepositoryInterface {
   findById(id: string): User | null;
   findAll(): User[];
   delete(id: string): void;
+  update(id: string, user: Prisma.UserUpdateInput): User | null;
 }
