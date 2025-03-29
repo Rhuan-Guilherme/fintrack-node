@@ -26,9 +26,11 @@ describe("Teste para deletar um usuário.", () => {
       password_hash: "teste123",
     });
 
-    useCase.execute({ id: response.id });
-
     const allUsers = await userRepository.findAll();
+
+    expect(allUsers.length).toEqual(2);
+
+    useCase.execute({ id: response.id });
 
     expect(allUsers.length).toEqual(1);
   });
