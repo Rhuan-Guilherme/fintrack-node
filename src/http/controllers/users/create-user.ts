@@ -1,16 +1,14 @@
 import { UserAlreadyExists } from "@/use-cases/exceptions/user-already-exists-error";
 import { makeCreateUser } from "@/use-cases/factories/users/make-create-user";
 import { FastifyReply, FastifyRequest } from "fastify";
-import { z } from "zod";
 
+interface RequsetSchema {
+  name: string;
+  email: string;
+  password: string;
+}
 export async function createUser(request: FastifyRequest, reply: FastifyReply) {
-  const registerSchema = z.object({
-    name: z.string().min(10).max(200),
-    email: z.string().email(),
-    password: z.string().min(2).max(100),
-  });
-
-  const { name, email, password } = registerSchema.parse(request.body);
+  const { name, email, password } = request.body as RequsetSchema;
 
   try {
     const createUser = makeCreateUser();
