@@ -5,7 +5,7 @@ import { z } from "zod";
 
 export async function createUser(request: FastifyRequest, reply: FastifyReply) {
   const registerSchema = z.object({
-    name: z.string().min(2).max(200),
+    name: z.string().min(10).max(200),
     email: z.string().email(),
     password: z.string().min(2).max(100),
   });
@@ -23,5 +23,6 @@ export async function createUser(request: FastifyRequest, reply: FastifyReply) {
         label: "O e-mail informado ja está em uso.",
       });
     }
+    throw new Error();
   }
 }
