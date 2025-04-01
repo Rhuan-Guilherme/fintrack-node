@@ -34,5 +34,14 @@ export const createUserSchema = {
         message: { type: "string" },
       },
     },
+
+    400: {
+      description: "Erro de validação do e-mail",
+      type: "object",
+      properties: {
+        message: { type: "string" },
+        label: { type: "string" },
+      },
+    },
   },
 };
