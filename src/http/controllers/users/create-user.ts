@@ -17,7 +17,7 @@ export async function createUser(request: FastifyRequest, reply: FastifyReply) {
   } catch (error) {
     if (error instanceof UserAlreadyExists) {
       reply.status(400).send({
-        message: error.message,
+        error: error.message,
         label: "O e-mail informado ja está em uso.",
       });
     }

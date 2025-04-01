@@ -9,4 +9,15 @@ export const createUserSchema = {
     email: z.string().email(),
     password: z.string(),
   }),
+
+  response: {
+    201: z.object({
+      message: z.string().describe("Usuário registrado com sucesso."),
+    }),
+
+    400: z.object({
+      error: z.string(),
+      label: z.string().describe("O e-mail informado ja está em uso."),
+    }),
+  },
 };
