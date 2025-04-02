@@ -9,12 +9,21 @@ import {
 } from "fastify-type-provider-zod";
 import { userRoutes } from "./http/controllers/users/routes";
 import { env } from "./env";
+import fastifyJwt from "@fastify/jwt";
 
+// Cria uma instância do Fastify e define o Type Provider para Zod (validação de dados)
 export const app = fastify().withTypeProvider<ZodTypeProvider>();
 
+// Configura o compilador de validação e serialização para usar Zod
 app.setValidatorCompiler(validatorCompiler);
 app.setSerializerCompiler(serializerCompiler);
 
+// Configura token JWT
+app.register(fastifyJwt, {
+  secret: env.JWT_SECRET,
+});
+
+// Registra o Swagger (documentação da API)
 app.register(fastifySwagger, {
   openapi: {
     info: {
@@ -26,12 +35,12 @@ app.register(fastifySwagger, {
   transform: jsonSchemaTransform,
 });
 
+// Registra o Swagger UI para disponibilizar a interface gráfica da documentação
 app.register(fastifySwaggerUi, {
   routePrefix: "/docs",
 });
 
-app.register(userRoutes);
-
+// Define um manipulador de erros global para tratar erros na API
 app.setErrorHandler((error, _, reply) => {
   if (error.code === "FST_ERR_VALIDATION") {
     return reply
@@ -45,3 +54,6 @@ app.setErrorHandler((error, _, reply) => {
 
   return reply.status(500).send({ message: "Internal Server Error.", error });
 });
+
+// Registra as rotas de usuário no aplicativo
+app.register(userRoutes);
