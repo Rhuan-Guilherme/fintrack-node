@@ -11,11 +11,7 @@ export const authenticateSchema = {
 
   response: {
     200: z.object({
-      user: z.object({
-        id: z.string(),
-        name: z.string(),
-        email: z.string(),
-      }),
+      token: z.string(),
     }),
 
     403: z.object({

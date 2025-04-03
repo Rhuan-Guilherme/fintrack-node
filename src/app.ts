@@ -25,6 +25,13 @@ app.register(fastifyCookie);
 // Configura token JWT
 app.register(fastifyJwt, {
   secret: env.JWT_SECRET,
+  cookie: {
+    cookieName: "refreshToken",
+    signed: false,
+  },
+  sign: {
+    expiresIn: "30m",
+  },
 });
 
 // Registra o Swagger (documentação da API)
