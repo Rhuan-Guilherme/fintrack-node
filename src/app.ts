@@ -10,6 +10,7 @@ import {
 import { userRoutes } from "./http/controllers/users/routes";
 import { env } from "./env";
 import fastifyJwt from "@fastify/jwt";
+import fastifyCookie from "@fastify/cookie";
 
 // Cria uma instância do Fastify e define o Type Provider para Zod (validação de dados)
 export const app = fastify().withTypeProvider<ZodTypeProvider>();
@@ -17,6 +18,9 @@ export const app = fastify().withTypeProvider<ZodTypeProvider>();
 // Configura o compilador de validação e serialização para usar Zod
 app.setValidatorCompiler(validatorCompiler);
 app.setSerializerCompiler(serializerCompiler);
+
+// Configura fastify cookies
+app.register(fastifyCookie);
 
 // Configura token JWT
 app.register(fastifyJwt, {
