@@ -3,6 +3,9 @@ import { createUser } from "./create-user";
 import { createUserSchema } from "@/swagger/users/create-user-schema";
 import { authenticateUser } from "./authenticate";
 import { authenticateSchema } from "@/swagger/users/authenticate-schema";
+import { getUser } from "./get-user";
+import { getUserSchema } from "@/swagger/users/get-user-schema";
+import { verifyJWT } from "@/http/middlewares/verify-jwt";
 
 export function userRoutes(app: FastifyTypedInstace) {
   app.post(
@@ -14,4 +17,5 @@ export function userRoutes(app: FastifyTypedInstace) {
   );
 
   app.post("/authenticate", { schema: authenticateSchema }, authenticateUser);
+  app.get("/me", { schema: getUserSchema, onRequest: [verifyJWT] }, getUser);
 }
