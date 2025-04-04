@@ -24,4 +24,12 @@ export class InMemoryTransactionRepository
     this.transactions.push(newTransaction);
     return newTransaction;
   }
+
+  async findAllForUser(userId: string): Promise<Transaction[]> {
+    const transaction = this.transactions.filter((transaction) => {
+      return transaction.userId === userId;
+    });
+
+    return transaction;
+  }
 }
