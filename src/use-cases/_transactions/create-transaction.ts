@@ -8,6 +8,7 @@ interface CreateTransactionRequest {
   amount: number;
   type: "INCOME" | "OUTCOME";
   description: string;
+  categoryId: string;
 }
 
 interface CreateTransactionResponse {
@@ -25,6 +26,7 @@ export class CreateTransactionUseCase {
     description,
     type,
     userId,
+    categoryId,
   }: CreateTransactionRequest): Promise<CreateTransactionResponse> {
     const user = await this.userRepository.findById(userId);
 
@@ -34,6 +36,7 @@ export class CreateTransactionUseCase {
 
     const transaction = await this.transactionRepository.create({
       user: { connect: { id: user.id } },
+      category: { connect: { id: categoryId } },
       amount,
       type,
       description,

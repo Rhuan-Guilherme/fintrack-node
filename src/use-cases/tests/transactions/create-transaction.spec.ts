@@ -31,6 +31,7 @@ describe("Teste para criar uma nova transação", () => {
       description: "Teste de transação",
       type: "INCOME",
       userId: user.id,
+      categoryId: "129321",
     });
 
     expect(response.transaction.amount).toBe(100);
@@ -46,6 +47,7 @@ describe("Teste para criar uma nova transação", () => {
         description: "Teste de transação",
         type: "INCOME",
         userId: "fakeid",
+        categoryId: "fakeid",
       }),
     ).rejects.toBeInstanceOf(ResourceNotFoundError);
   });

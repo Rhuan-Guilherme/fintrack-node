@@ -12,6 +12,8 @@ export class InMemoryTransactionRepository
     const newTransaction = {
       id: randomUUID(),
       userId: (transaction.user as { connect: { id: string } }).connect.id,
+      categoryId: (transaction.category as { connect: { id: string } }).connect
+        .id,
       amount: transaction.amount as Prisma.Decimal,
       type: transaction.type as $Enums.TypeTransaction,
       description: transaction.description,
