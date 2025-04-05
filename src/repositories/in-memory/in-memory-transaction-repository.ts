@@ -26,6 +26,14 @@ export class InMemoryTransactionRepository
     return newTransaction;
   }
 
+  async find(transactionId: string): Promise<Transaction | undefined> {
+    const transaction = this.transactions.find((transaction) => {
+      return transaction.id === transactionId;
+    });
+
+    return transaction;
+  }
+
   async findAllForUser(userId: string): Promise<Transaction[]> {
     const transaction = this.transactions.filter((transaction) => {
       return transaction.userId === userId;
@@ -43,5 +51,23 @@ export class InMemoryTransactionRepository
     if (indexTransaction !== -1) {
       this.transactions[indexTransaction].deleted = true;
     }
+  }
+
+  async update(
+    transactionId: string,
+    transaction: Prisma.TransactionUpdateInput,
+  ): Promise<Transaction> {
+    const indexTransaction = this.transactions.findIndex(
+      (transactio) => transactio.id === transactionId,
+    );
+
+    if (indexTransaction !== -1) {
+      this.transactions[indexTransaction] = {
+        ...this.transactions[indexTransaction],
+        ...transaction,
+      } as Transaction;
+    }
+
+    return this.transactions[indexTransaction];
   }
 }
