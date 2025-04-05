@@ -10,7 +10,7 @@ export class InMemoryTransactionRepository
     transaction: Prisma.TransactionCreateInput,
   ): Promise<Transaction> {
     const newTransaction = {
-      id: randomUUID(),
+      id: transaction.id || randomUUID(),
       userId: (transaction.user as { connect: { id: string } }).connect.id,
       categoryId: (transaction.category as { connect: { id: string } }).connect
         .id,
@@ -19,6 +19,7 @@ export class InMemoryTransactionRepository
       description: transaction.description,
       created_at: new Date(),
       updated_at: new Date(),
+      deleted: false,
     };
 
     this.transactions.push(newTransaction);
@@ -31,5 +32,16 @@ export class InMemoryTransactionRepository
     });
 
     return transaction;
+  }
+
+  async delete(userId: string, transactionID: string): Promise<void> {
+    const indexTransaction = this.transactions.findIndex(
+      (transaction) =>
+        transaction.userId === userId && transaction.id === transactionID,
+    );
+
+    if (indexTransaction !== -1) {
+      this.transactions[indexTransaction].deleted = true;
+    }
   }
 }
