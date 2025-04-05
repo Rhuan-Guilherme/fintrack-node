@@ -11,6 +11,7 @@ import { userRoutes } from "./http/controllers/users/routes";
 import { env } from "./env";
 import fastifyJwt from "@fastify/jwt";
 import fastifyCookie from "@fastify/cookie";
+import { transactionRoutes } from "./http/controllers/transactions/routes";
 
 // Cria uma instância do Fastify e define o Type Provider para Zod (validação de dados)
 export const app = fastify().withTypeProvider<ZodTypeProvider>();
@@ -68,3 +69,4 @@ app.setErrorHandler((error, _, reply) => {
 
 // Registra as rotas de usuário no aplicativo
 app.register(userRoutes);
+app.register(transactionRoutes);
