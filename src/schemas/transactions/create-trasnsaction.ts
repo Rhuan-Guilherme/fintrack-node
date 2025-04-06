@@ -1,23 +1,39 @@
 import { z } from "zod";
 
-export const createUserSchema = {
-  description: "Cria um novo usuário.",
-  tags: ["Usuários"],
+export const createTransactionSchema = {
+  description: "Cria uma nova tranação.",
+  tags: ["Transações"],
 
   body: z.object({
-    name: z.string().min(1),
-    email: z.string().email(),
-    password: z.string(),
+    amount: z.union([z.string(), z.number()]),
+    type: z.enum(["INCOME", "OUTCOME"]),
+    description: z.string().min(1),
+    userId: z.string().uuid(),
+    categoryId: z.string().uuid(),
   }),
 
   response: {
     201: z.object({
-      message: z.string().describe("Usuário registrado com sucesso."),
+      id: z.string(),
+      userId: z.string(),
+      categoryId: z.string(),
+      amount: z.any(),
+      type: z.enum(["INCOME", "OUTCOME"]),
+      description: z.string(),
+      created_at: z.date(),
+      updated_at: z.date(),
+      deleted: z.boolean(),
+      category: z.object({
+        id: z.string(),
+        name: z.string(),
+        type: z.enum(["INCOME", "OUTCOME"]),
+        userId: z.string().nullable(),
+      }),
     }),
 
     400: z.object({
       error: z.string(),
-      label: z.string().describe("O e-mail informado ja está em uso."),
+      label: z.string().describe("Usuário informado não encontrado."),
     }),
   },
 };

@@ -31,7 +31,7 @@ export async function createTransaction(
     if (error instanceof ResourceNotFoundError) {
       reply.status(404).send({
         error: error.message,
-        label: "Usuário informados não encontrado.",
+        label: "Usuário informado não encontrado.",
       });
       return;
     }
