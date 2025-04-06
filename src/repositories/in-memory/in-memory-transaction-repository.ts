@@ -26,10 +26,14 @@ export class InMemoryTransactionRepository
     return newTransaction;
   }
 
-  async find(transactionId: string): Promise<Transaction | undefined> {
+  async find(transactionId: string): Promise<Transaction | null> {
     const transaction = this.transactions.find((transaction) => {
       return transaction.id === transactionId;
     });
+
+    if (!transaction) {
+      return null;
+    }
 
     return transaction;
   }
