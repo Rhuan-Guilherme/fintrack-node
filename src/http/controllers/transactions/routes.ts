@@ -4,8 +4,16 @@ import { verifyJWT } from "@/http/middlewares/verify-jwt";
 import { createTransactionSchema } from "@/schemas/transactions/create-trasnsaction";
 import { deleteTransaction } from "./delete-transation";
 import { deleteTransactionSchema } from "@/schemas/transactions/delete-transaction";
+import { getUniqueTransaction } from "./get-unique-transaction";
+import { getUniqueTransactionSchema } from "@/schemas/transactions/get-unique-transaction";
 
 export function transactionRoutes(app: FastifyTypedInstace) {
+  app.get(
+    "/transaction",
+    { schema: getUniqueTransactionSchema, onRequest: [verifyJWT] },
+    getUniqueTransaction,
+  );
+
   app.post(
     "/transaction/create",
     { schema: createTransactionSchema, onRequest: [verifyJWT] },
