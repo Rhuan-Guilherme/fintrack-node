@@ -46,10 +46,9 @@ export class InMemoryTransactionRepository
     return transaction;
   }
 
-  async delete(userId: string, transactionID: string): Promise<void> {
+  async delete(transactionID: string): Promise<void> {
     const indexTransaction = this.transactions.findIndex(
-      (transaction) =>
-        transaction.userId === userId && transaction.id === transactionID,
+      (transaction) => transaction.id === transactionID,
     );
 
     if (indexTransaction !== -1) {

@@ -18,5 +18,7 @@ export const authenticateSchema = {
       error: z.string(),
       label: z.string().describe("Usuário ou senha inválidos."),
     }),
+
+    400: z.any(),
   },
 };

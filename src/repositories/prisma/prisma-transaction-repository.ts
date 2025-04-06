@@ -37,9 +37,9 @@ export class PrismaTransactionRepository
 
     return transactions;
   }
-  async delete(userId: string, transactionId: string): Promise<void> {
+  async delete(transactionId: string): Promise<void> {
     await prisma.transaction.update({
-      where: { id: transactionId, userId },
+      where: { id: transactionId },
       data: { deleted: true },
     });
   }

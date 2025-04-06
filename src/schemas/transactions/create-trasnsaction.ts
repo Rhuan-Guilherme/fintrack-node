@@ -31,9 +31,11 @@ export const createTransactionSchema = {
       }),
     }),
 
-    400: z.object({
+    404: z.object({
       error: z.string(),
       label: z.string().describe("Usuário informado não encontrado."),
     }),
+
+    400: z.any(),
   },
 };

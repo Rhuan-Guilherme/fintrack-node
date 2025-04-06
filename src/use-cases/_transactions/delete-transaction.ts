@@ -1,4 +1,5 @@
 import { TransactionsRepositoryInterface } from "@/repositories/transactions-repository-interface";
+import { NotAuthorizedForFeatureError } from "../exceptions/not-authorized-for-feature-error";
 
 interface GetDeleteTransaction {
   userId: string;
@@ -12,6 +13,12 @@ export class DeleteTransaction {
     transactionId,
     userId,
   }: GetDeleteTransaction): Promise<void> {
-    await this.transactionRepository.delete(userId, transactionId);
+    const transaction = await this.transactionRepository.find(transactionId);
+
+    if (transaction?.userId !== userId) {
+      throw new NotAuthorizedForFeatureError();
+    }
+
+    await this.transactionRepository.delete(transactionId);
   }
 }

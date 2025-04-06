@@ -3,7 +3,7 @@ import { makeCreateTransaction } from "@/use-cases/factories/transactions/make-c
 import { FastifyReply, FastifyRequest } from "fastify";
 
 interface RequestSchema {
-  amount: number;
+  amount: number | string;
   type: "INCOME" | "OUTCOME";
   description: string;
   userId: string;
@@ -35,6 +35,6 @@ export async function createTransaction(
       });
       return;
     }
-    reply.status(400).send({ error: error });
+    throw new Error();
   }
 }
