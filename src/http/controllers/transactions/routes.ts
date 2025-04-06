@@ -3,6 +3,7 @@ import { createTransaction } from "./create-transaction";
 import { verifyJWT } from "@/http/middlewares/verify-jwt";
 import { createTransactionSchema } from "@/schemas/transactions/create-trasnsaction";
 import { deleteTransaction } from "./delete-transation";
+import { deleteTransactionSchema } from "@/schemas/transactions/delete-transaction";
 
 export function transactionRoutes(app: FastifyTypedInstace) {
   app.post(
@@ -13,7 +14,7 @@ export function transactionRoutes(app: FastifyTypedInstace) {
 
   app.delete(
     "/transaction/delete",
-    { onRequest: [verifyJWT] },
+    { schema: deleteTransactionSchema, onRequest: [verifyJWT] },
     deleteTransaction,
   );
 }
