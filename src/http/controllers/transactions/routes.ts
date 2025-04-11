@@ -8,6 +8,8 @@ import { getUniqueTransaction } from "./get-unique-transaction";
 import { getUniqueTransactionSchema } from "@/schemas/transactions/get-unique-transaction";
 import { getTransactionsForUser } from "./get-transactions-for-user";
 import { getTransactionsForUserSchema } from "@/schemas/transactions/get-transactions-for-user";
+import { updateTransaction } from "./update-transaction";
+import { updateTransactionSchema } from "@/schemas/transactions/update-transaction";
 
 export function transactionRoutes(app: FastifyTypedInstace) {
   app.get(
@@ -26,6 +28,12 @@ export function transactionRoutes(app: FastifyTypedInstace) {
     "/transaction/create",
     { schema: createTransactionSchema, onRequest: [verifyJWT] },
     createTransaction,
+  );
+
+  app.put(
+    "/transaction/update/:id",
+    { schema: updateTransactionSchema, onRequest: [verifyJWT] },
+    updateTransaction,
   );
 
   app.delete(
