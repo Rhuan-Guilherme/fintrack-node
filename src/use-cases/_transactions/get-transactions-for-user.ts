@@ -5,6 +5,8 @@ import { ResourceNotFoundError } from "../exceptions/resource-not-found-error";
 
 interface GetTransactionsForUserRequest {
   userId: string;
+  page: number;
+  perPage: number;
 }
 
 interface GetTransactionsForUserResponse {
@@ -19,6 +21,8 @@ export class GetTransactionsForUserUseCase {
 
   async execute({
     userId,
+    page,
+    perPage,
   }: GetTransactionsForUserRequest): Promise<GetTransactionsForUserResponse> {
     const user = await this.userRepository.findById(userId);
 
@@ -28,6 +32,8 @@ export class GetTransactionsForUserUseCase {
 
     const transaction = await this.transactionRepository.findAllForUser(
       user.id,
+      page,
+      perPage,
     );
 
     return {

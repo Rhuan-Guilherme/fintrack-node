@@ -26,7 +26,7 @@ describe("Teste obter transações de um usuário.", () => {
       password_hash: await hash("teste123", 6),
     });
 
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 20; i++) {
       await transactionRepository.create({
         amount: 100,
         description: `Teste de transação ${i}`,
@@ -36,7 +36,11 @@ describe("Teste obter transações de um usuário.", () => {
       });
     }
 
-    const { transaction } = await useCase.execute({ userId: user.id });
+    const { transaction } = await useCase.execute({
+      userId: user.id,
+      page: 1,
+      perPage: 10,
+    });
 
     expect(transaction.length).toEqual(10);
     expect(transaction[0].description).toBe("Teste de transação 0");
@@ -50,6 +54,8 @@ describe("Teste obter transações de um usuário.", () => {
     await expect(() =>
       useCase.execute({
         userId: "fakeid",
+        page: 1,
+        perPage: 10,
       }),
     ).rejects.toBeInstanceOf(ResourceNotFoundError);
   });

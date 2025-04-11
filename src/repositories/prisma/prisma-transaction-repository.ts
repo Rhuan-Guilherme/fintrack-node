@@ -27,9 +27,18 @@ export class PrismaTransactionRepository
 
     return transaction;
   }
-  async findAllForUser(userId: string): Promise<Transaction[]> {
+  async findAllForUser(
+    userId: string,
+    page: number,
+    perPage: number,
+  ): Promise<Transaction[]> {
     const transactions = await prisma.transaction.findMany({
       where: { userId, deleted: false },
+      orderBy: {
+        created_at: "desc",
+      },
+      take: perPage,
+      skip: (page - 1) * perPage,
       include: {
         category: true,
       },

@@ -38,12 +38,16 @@ export class InMemoryTransactionRepository
     return transaction;
   }
 
-  async findAllForUser(userId: string): Promise<Transaction[]> {
-    const transaction = this.transactions.filter((transaction) => {
-      return transaction.userId === userId;
-    });
-
-    return transaction;
+  async findAllForUser(
+    userId: string,
+    page: number,
+    perPage: number,
+  ): Promise<Transaction[]> {
+    return this.transactions
+      .filter((transaction) => {
+        return transaction.userId === userId;
+      })
+      .slice((page - 1) * perPage, page * perPage);
   }
 
   async delete(transactionID: string): Promise<void> {
