@@ -4,8 +4,8 @@ export const getUniqueTransactionSchema = {
   description: "Obterm uma tranação única.",
   tags: ["Transações"],
 
-  querystring: z.object({
-    transactionId: z.string().uuid(),
+  params: z.object({
+    id: z.string().uuid(),
   }),
 
   response: {

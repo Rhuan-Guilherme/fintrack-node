@@ -2,20 +2,16 @@ import { NotAuthorizedForFeatureError } from "@/use-cases/exceptions/not-authori
 import { makeDeleteTransaction } from "@/use-cases/factories/transactions/make-delete-transaction";
 import { FastifyReply, FastifyRequest } from "fastify";
 
-interface RequestSchema {
-  transactionId: string;
-}
-
 export async function deleteTransaction(
   request: FastifyRequest,
   reply: FastifyReply,
 ) {
   const userId = request.user.sub;
-  const { transactionId } = request.query as RequestSchema;
+  const { id } = request.params as { id: string };
 
   try {
     const deleteTransaction = makeDeleteTransaction();
-    await deleteTransaction.execute({ transactionId, userId });
+    await deleteTransaction.execute({ transactionId: id, userId });
     reply.status(204);
   } catch (error) {
     if (error instanceof NotAuthorizedForFeatureError) {

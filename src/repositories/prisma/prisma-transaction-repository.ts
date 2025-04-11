@@ -19,7 +19,7 @@ export class PrismaTransactionRepository
   }
   async find(transactionId: string): Promise<Transaction | null> {
     const transaction = await prisma.transaction.findFirst({
-      where: { id: transactionId },
+      where: { id: transactionId, deleted: false },
       include: {
         category: true,
       },

@@ -13,7 +13,7 @@ import { updateTransactionSchema } from "@/schemas/transactions/update-transacti
 
 export function transactionRoutes(app: FastifyTypedInstace) {
   app.get(
-    "/transaction",
+    "/transaction/:id",
     { schema: getUniqueTransactionSchema, onRequest: [verifyJWT] },
     getUniqueTransaction,
   );
@@ -37,7 +37,7 @@ export function transactionRoutes(app: FastifyTypedInstace) {
   );
 
   app.delete(
-    "/transaction/delete",
+    "/transaction/delete/:id",
     { schema: deleteTransactionSchema, onRequest: [verifyJWT] },
     deleteTransaction,
   );

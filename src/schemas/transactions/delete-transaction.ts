@@ -4,9 +4,8 @@ export const deleteTransactionSchema = {
   description: "Deleta uma tranação.",
   tags: ["Transações"],
 
-  querystring: z.object({
-    userId: z.string().uuid(),
-    transactionId: z.string().uuid(),
+  params: z.object({
+    id: z.string().uuid(),
   }),
 
   response: {
