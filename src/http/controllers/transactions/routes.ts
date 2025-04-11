@@ -7,6 +7,7 @@ import { deleteTransactionSchema } from "@/schemas/transactions/delete-transacti
 import { getUniqueTransaction } from "./get-unique-transaction";
 import { getUniqueTransactionSchema } from "@/schemas/transactions/get-unique-transaction";
 import { getTransactionsForUser } from "./get-transactions-for-user";
+import { getTransactionsForUserSchema } from "@/schemas/transactions/get-transactions-for-user";
 
 export function transactionRoutes(app: FastifyTypedInstace) {
   app.get(
@@ -15,7 +16,11 @@ export function transactionRoutes(app: FastifyTypedInstace) {
     getUniqueTransaction,
   );
 
-  app.get("/transactions", { onRequest: [verifyJWT] }, getTransactionsForUser);
+  app.get(
+    "/transactions",
+    { schema: getTransactionsForUserSchema, onRequest: [verifyJWT] },
+    getTransactionsForUser,
+  );
 
   app.post(
     "/transaction/create",
