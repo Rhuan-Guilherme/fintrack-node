@@ -3,7 +3,7 @@ import { CategoryRepositoryInterface } from "../category-repository-interface";
 import { randomUUID } from "crypto";
 
 export class InMemoryCategoryRepository implements CategoryRepositoryInterface {
-  public category: Category[] = [];
+  public categories: Category[] = [];
 
   async create(category: Prisma.CategoryCreateInput): Promise<Category> {
     const newCategory = {
@@ -15,8 +15,28 @@ export class InMemoryCategoryRepository implements CategoryRepositoryInterface {
         : null,
     };
 
-    this.category.push(newCategory);
+    this.categories.push(newCategory);
 
     return newCategory;
+  }
+
+  async findAll(userId?: string): Promise<Category[]> {
+    const listCategories: Category[] = [];
+
+    const findStandardCategories = this.categories.filter((category) => {
+      return category.userId === null;
+    });
+
+    listCategories.push(...findStandardCategories);
+
+    if (userId) {
+      const findUserCategories = this.categories.filter((category) => {
+        return category.userId === userId;
+      });
+
+      listCategories.push(...findUserCategories);
+    }
+
+    return listCategories;
   }
 }
