@@ -13,7 +13,7 @@ export class PrismaCategoryRepository implements CategoryRepositoryInterface {
   async findAll(userId?: string): Promise<Category[]> {
     const categories = prisma.category.findMany({
       where: {
-        OR: [{ userId: undefined }, { userId: userId }],
+        OR: [{ userId: null }, { userId: userId }],
       },
     });
 
