@@ -7,7 +7,7 @@ export class InMemoryCategoryRepository implements CategoryRepositoryInterface {
 
   async create(category: Prisma.CategoryCreateInput): Promise<Category> {
     const newCategory = {
-      id: randomUUID(),
+      id: category.id || randomUUID(),
       name: category.name,
       type: category.type,
       userId: category.user
@@ -38,5 +38,23 @@ export class InMemoryCategoryRepository implements CategoryRepositoryInterface {
     }
 
     return listCategories;
+  }
+
+  async update(
+    categoryId: string,
+    category: Prisma.CategoryUpdateInput,
+  ): Promise<Category> {
+    const indexCategory = this.categories.findIndex((category) => {
+      return category.id === categoryId;
+    });
+
+    if (indexCategory !== -1) {
+      this.categories[indexCategory] = {
+        ...this.categories[indexCategory],
+        ...category,
+      } as Category;
+    }
+
+    return this.categories[indexCategory];
   }
 }
