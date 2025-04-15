@@ -12,7 +12,7 @@ describe("Teste para atualizar dados de uma categoria.", () => {
     useCase = new UpdateCategoryUseCase(categoryRepository);
   });
 
-  test("Deve ser possível criar uma nova categoria padrão.", async () => {
+  test("Deve ser possível alterar dados de uma transação existente.", async () => {
     for (let i = 0; i < 10; i++) {
       await categoryRepository.create({
         id: "id" + i,

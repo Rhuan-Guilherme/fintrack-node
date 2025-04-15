@@ -40,6 +40,16 @@ export class InMemoryCategoryRepository implements CategoryRepositoryInterface {
     return listCategories;
   }
 
+  async delete(categoryId: string): Promise<void> {
+    const indexTransaction = this.categories.findIndex(
+      (category) => category.id === categoryId,
+    );
+
+    if (indexTransaction !== -1) {
+      this.categories.splice(indexTransaction, 1);
+    }
+  }
+
   async update(
     categoryId: string,
     category: Prisma.CategoryUpdateInput,
