@@ -6,7 +6,6 @@ interface RequestSchema {
   amount: number | string;
   type: "INCOME" | "OUTCOME";
   description: string;
-  userId: string;
   categoryId: string;
 }
 
@@ -14,7 +13,7 @@ export async function createTransaction(
   request: FastifyRequest,
   reply: FastifyReply,
 ) {
-  const { amount, type, description, userId, categoryId } =
+  const { amount, type, description, categoryId } =
     request.body as RequestSchema;
 
   try {
@@ -23,7 +22,7 @@ export async function createTransaction(
       amount,
       categoryId,
       description,
-      userId,
+      userId: request.user.sub,
       type,
     });
     reply.status(201).send(transaction);

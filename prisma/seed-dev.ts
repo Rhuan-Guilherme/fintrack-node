@@ -2,6 +2,10 @@ import { prisma } from "@/lib/prisma";
 import { hash } from "bcryptjs";
 
 async function seed() {
+  await prisma.transaction.deleteMany();
+  await prisma.category.deleteMany();
+  await prisma.user.deleteMany();
+
   const userId = "a991b288-012e-40f9-933f-bb12ff104aaa";
 
   await prisma.user.create({

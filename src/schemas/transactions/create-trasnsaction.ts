@@ -8,7 +8,6 @@ export const createTransactionSchema = {
     amount: z.union([z.string(), z.number()]),
     type: z.enum(["INCOME", "OUTCOME"]),
     description: z.string().min(1),
-    userId: z.string().uuid(),
     categoryId: z.string().uuid(),
   }),
 
