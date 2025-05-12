@@ -7,6 +7,7 @@ import { findTransactionsSchema } from "@/schemas/categories/find-all-categories
 import { deleteCategory } from "./delete-category";
 import { deleteCategorySchema } from "@/schemas/categories/delete-category";
 import { updateCategory } from "./update-category";
+import { updateCategorySchema } from "@/schemas/categories/update-category";
 
 export function categoriesRoutes(app: FastifyTypedInstace) {
   app.post(
@@ -27,5 +28,9 @@ export function categoriesRoutes(app: FastifyTypedInstace) {
     deleteCategory,
   );
 
-  app.put("/categories/:id", { onRequest: [verifyJWT] }, updateCategory);
+  app.put(
+    "/categories/:id",
+    { schema: updateCategorySchema, onRequest: [verifyJWT] },
+    updateCategory,
+  );
 }

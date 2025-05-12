@@ -34,6 +34,5 @@ export async function updateCategory(
           "Não é possivel deletar uma categoria que não foi criada por você.",
       });
     }
-    return reply.status(500).send(error);
   }
 }
