@@ -1,6 +1,7 @@
 import { Category } from "@prisma/client";
 import { ResourceNotFoundError } from "../exceptions/resource-not-found-error";
 import { CategoryRepositoryInterface } from "@/repositories/category-repository-interface";
+import { NotAuthorizedForFeatureError } from "../exceptions/not-authorized-for-feature-error";
 
 interface UpdateCategoryRequest {
   id: string;
@@ -20,11 +21,17 @@ export class UpdateCategoryUseCase {
     type,
     name,
   }: UpdateCategoryRequest): Promise<UpdateCategoryResponse> {
-    const category = await this.categoryRepository.update(id, { type, name });
+    const findCategory = await this.categoryRepository.findUnique(id);
 
-    if (!category) {
+    if (!findCategory) {
       throw new ResourceNotFoundError();
     }
+
+    if (findCategory.userId === null) {
+      throw new NotAuthorizedForFeatureError();
+    }
+
+    const category = await this.categoryRepository.update(id, { type, name });
 
     return {
       category,

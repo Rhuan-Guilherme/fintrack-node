@@ -4,6 +4,9 @@ import { verifyJWT } from "@/http/middlewares/verify-jwt";
 import { createCategorySchema } from "@/schemas/categories/create-category";
 import { findAllCategories } from "./find-all-categories";
 import { findTransactionsSchema } from "@/schemas/categories/find-all-categories";
+import { deleteCategory } from "./delete-category";
+import { deleteCategorySchema } from "@/schemas/categories/delete-category";
+import { updateCategory } from "./update-category";
 
 export function categoriesRoutes(app: FastifyTypedInstace) {
   app.post(
@@ -17,4 +20,12 @@ export function categoriesRoutes(app: FastifyTypedInstace) {
     { schema: findTransactionsSchema, onRequest: [verifyJWT] },
     findAllCategories,
   );
+
+  app.delete(
+    "/categories/:id",
+    { schema: deleteCategorySchema, onRequest: [verifyJWT] },
+    deleteCategory,
+  );
+
+  app.put("/categories/:id", { onRequest: [verifyJWT] }, updateCategory);
 }

@@ -40,6 +40,20 @@ export class InMemoryCategoryRepository implements CategoryRepositoryInterface {
     return listCategories;
   }
 
+  async findUnique(categoryId: string): Promise<Category | null> {
+    const category = this.categories.find((category) => {
+      if (category.id === categoryId) {
+        return category;
+      }
+    });
+
+    if (!category) {
+      return null;
+    }
+
+    return category;
+  }
+
   async delete(categoryId: string): Promise<void> {
     const indexTransaction = this.categories.findIndex(
       (category) => category.id === categoryId,

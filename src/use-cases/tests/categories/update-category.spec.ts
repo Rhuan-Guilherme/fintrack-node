@@ -1,5 +1,6 @@
 import { InMemoryCategoryRepository } from "@/repositories/in-memory/in-memory-category-repository";
 import { UpdateCategoryUseCase } from "@/use-cases/_categories/update-category";
+import { NotAuthorizedForFeatureError } from "@/use-cases/exceptions/not-authorized-for-feature-error";
 import { ResourceNotFoundError } from "@/use-cases/exceptions/resource-not-found-error";
 import { beforeEach, describe, expect, test } from "vitest";
 
@@ -42,5 +43,21 @@ describe("Teste para atualizar dados de uma categoria.", () => {
         type: "INCOME",
       }),
     ).rejects.toBeInstanceOf(ResourceNotFoundError);
+  });
+
+  test("Não deve ser possível alterar dados de uma categoria fixa.", async () => {
+    await categoryRepository.create({
+      id: "id",
+      name: "name",
+      type: "INCOME",
+    });
+
+    await expect(() =>
+      useCase.execute({
+        id: "id",
+        name: "Teste de transação",
+        type: "INCOME",
+      }),
+    ).rejects.toBeInstanceOf(NotAuthorizedForFeatureError);
   });
 });
