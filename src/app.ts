@@ -13,6 +13,7 @@ import fastifyJwt from "@fastify/jwt";
 import fastifyCookie from "@fastify/cookie";
 import { transactionRoutes } from "./http/controllers/transactions/routes";
 import { categoriesRoutes } from "./http/controllers/categories/routes";
+import fastifyCors from "@fastify/cors";
 
 // Cria uma instância do Fastify e define o Type Provider para Zod (validação de dados)
 export const app = fastify().withTypeProvider<ZodTypeProvider>();
@@ -66,6 +67,12 @@ app.setErrorHandler((error, _, reply) => {
   }
 
   return reply.status(500).send({ message: "Internal Server Error.", error });
+});
+
+// Configuração de CORS
+app.register(fastifyCors, {
+  origin: "*",
+  allowedHeaders: "*",
 });
 
 // Registra as rotas de usuário no aplicativo
